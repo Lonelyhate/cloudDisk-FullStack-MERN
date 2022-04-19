@@ -1,0 +1,64 @@
+@import '../../../variables.scss';
+
+.uploader{
+    width: 300px;
+    position: fixed;
+    background-color: $font-color;
+    bottom: 0;
+    right: 15px;
+    padding: 20px;
+    border-radius: 12px;
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__title{
+        font-size: 22px;
+        color: $backgoound-color;
+    }
+    &__close{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $backgoound-color;
+        background-color: transparent;
+        border: 1px solid $backgoound-color;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+.upload-file{
+    background-color: $backgoound-color;
+    border-radius: 8px;
+    margin: 5px 0;
+    padding: 5px 10px;
+    &__header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__remove{
+        color: $font-color;
+        font-weight: 700;
+    }
+    &__progress-bar{
+        height: 16px;
+        border-radius: 8px;
+        background-color: $font-color;
+        display: flex;
+        margin: 3px 0;
+        position: relative;
+    }
+    &__upload-bar{
+        background-color: green;
+        border-radius: 8px;
+    }
+    &__percent{
+        position: absolute;
+        color: $backgoound-color;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

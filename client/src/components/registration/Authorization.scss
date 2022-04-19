@@ -1,0 +1,40 @@
+@import '../../variables.scss';
+
+.authorization{
+    display: flex;
+    flex-direction: column;
+    width: 537px;
+    padding: 25px 33px;
+    background-color: #fff;
+    border-radius: 27px;
+    margin-top: 50px;
+    filter: drop-shadow(4px 4px 4px rgba(92, 92, 92, 0.25));
+    &__title{
+        margin: 0 0 25px 0;
+    }
+    input{
+        margin-bottom: 20px;
+        outline: none;
+        font-size: 18px;
+        &::placeholder{
+            font-size: 18px;
+            color: $font-color;
+            font-weight: 700;
+        }
+        &:focus{
+            transform: scale(1.01);
+        }
+    }
+    &__btn{
+        border: none;
+        background-color: $font-color;
+        font-size: 18px;
+        color: #fff;
+        width: 200px;
+        font-weight: 700;
+        padding: 5px 0;
+        border-radius: 10px;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+}

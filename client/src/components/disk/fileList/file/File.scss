@@ -1,0 +1,70 @@
+@import '../../../../variables.scss';
+
+h1, h2, h3, h4, h5,h6 {
+    padding: 0;
+    margin: 0;
+}
+
+.file{
+    padding: 10px 0;
+    border-top: 2px solid $font-color;
+    display: grid;
+    grid-template-columns: 1fr 4fr repeat(4, 1fr);
+    align-items: center;
+    &:last-child{
+        border-bottom: 2px solid $font-color;
+    }
+    &__date{
+        grid-column-start: 5;
+        justify-self: center;
+    }
+    &__size{
+        grid-column-start: 6;
+        justify-self: center;
+    }
+    &:hover{
+        transform: scale(1.02);
+    }
+    &__download{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 58px;
+        height: 34px;
+        background-color: transparent;
+        border-radius: 37px;
+        border: 1px solid $font-color;
+        cursor: pointer;
+        display: none;
+        justify-self: center;
+    }
+    &__delete{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 58px;
+        height: 34px;
+        background-color: transparent;
+        border-radius: 37px;
+        border: 1px solid $font-color;
+        cursor: pointer;
+        justify-self: center;
+        display: none;
+    }
+    &:hover{
+        .file__date{
+            grid-column-start: 3;
+        }
+        .file__size{
+            grid-column-start: 4;
+        }
+        .file__download{
+            display: block;
+            grid-column-start: 5;
+        }
+        .file__delete{
+            display: block;
+            grid-column-start: 6;
+        }
+    }
+}
