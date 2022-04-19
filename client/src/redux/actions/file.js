@@ -9,15 +9,22 @@ import {
 } from '../reducers/fileReducer';
 import { addUploadFile, changeUploadFile, showUploader } from './upload';
 
-export const getFiles = (dirId) => {
+export const getFiles = (dirId, sort) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(
-                `http://localhost:5000/api/files${dirId ? '?parent=' + dirId : ''}`,
-                {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-                },
-            );
+            let url = 'http://localhost:5000/api/files';
+            if(dirId) {
+                url = `http://localhost:5000/api/files?parent=${dirId}`
+            }
+            if(sort) {
+                url = `http://localhost:5000/api/files?sort=${sort}`
+            }
+            if(dirId && sort) {
+                url = `http://localhost:5000/api/files?parent=${dirId}&sort=${sort}`
+            }
+            const response = await axios.get(url, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
             dispatch({
                 type: SET_FILES,
                 payload: response.data,
@@ -88,8 +95,8 @@ export const uploadFile = (file, dirId) => {
                 formData.append('parent', dirId);
             }
             const uploadFile = { name: file.name, progress: 0, id: Date.now() };
-            dispatch(showUploader())
-            dispatch(addUploadFile(uploadFile))
+            dispatch(showUploader());
+            dispatch(addUploadFile(uploadFile));
             const response = await axios.post('http://localhost:5000/api/files/upload', formData, {
                 headers: { Authorization: `bearer ${localStorage.getItem('token')}` },
                 onUploadProgress: (progressEvent) => {
@@ -98,8 +105,10 @@ export const uploadFile = (file, dirId) => {
                         : progressEvent.target.getResponseHeader('content-length') ||
                           progressEvent.target.getResponseHeader('x-decompressed-content-length');
                     if (totalLength) {
-                        uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength);
-                        dispatch(changeUploadFile(uploadFile))
+                        uploadFile.progress = Math.round(
+                            (progressEvent.loaded * 100) / totalLength,
+                        );
+                        dispatch(changeUploadFile(uploadFile));
                     }
                 },
             });

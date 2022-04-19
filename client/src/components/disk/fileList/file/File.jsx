@@ -6,6 +6,7 @@ import fileImg from '../../../../assets/img/file.svg';
 import { deleteFile, downloadFile, pushToStack, setCurrentDir } from '../../../../redux/actions/file';
 import DownloadImg from '../../../../assets/img/download.svg';
 import DeleteImg from '../../../../assets/img/delete.svg';
+import sizeFormat from '../../../../utils/sizeFormat';
 
 const File = ({ file }) => {
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const File = ({ file }) => {
             <img src={file.type === 'dir' ? dirImg : fileImg} alt="" />
             <h4 className="file__name">{file.name}</h4>
             <span className="file__date">{file.date.slice(0, 10)}</span>
-            <span className="file__size">{file.size}</span>
+            <span className="file__size">{sizeFormat(file.size)}</span>
             {file.type !== 'dir' && (
                 <button onClick={(e) => downloadClickHandler(e)} className="file__download">
                     <img src={DownloadImg} alt="Скачать" />
