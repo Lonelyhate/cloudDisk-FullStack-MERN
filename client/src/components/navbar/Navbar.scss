@@ -6,6 +6,11 @@
     background-color: #fff;
     width: 100%;
     align-items: center;
+    &__search{
+        margin-left: 50px;
+        width: 200px;
+        outline: none;
+    }
     &__container{
         display: flex;
         align-items: center;

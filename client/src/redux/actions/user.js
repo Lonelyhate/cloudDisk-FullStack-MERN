@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGOUT, SET_USER } from '../reducers/userReducer';
+import { LOGOUT, SET_USER, USER_LOADING } from '../reducers/userReducer';
 
 export const registration = async (email, password) => {
     try {
@@ -16,6 +16,7 @@ export const registration = async (email, password) => {
 export const login = (email, password) => {
     return async (dispatch) => {
         try {
+            dispatch({type: USER_LOADING})
             const response = await axios.post(`http://localhost:5000/api/login`, {
                 email,
                 password,

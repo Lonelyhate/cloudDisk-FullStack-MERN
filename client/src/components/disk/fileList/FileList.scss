@@ -23,6 +23,12 @@
 .file-enter-active {
     animation: file-enter 500ms forwards;
 }
+.notFound{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 110px);
+}
 
 @keyframes file-enter {
     0% {

@@ -5,6 +5,7 @@ import {
     PUSH_TO_STACK,
     SET_CURRENT_DIR,
     SET_FILES,
+    SET_LOADING,
     SET_POPUP_DISPLAY,
 } from '../reducers/fileReducer';
 import { addUploadFile, changeUploadFile, showUploader } from './upload';
@@ -12,15 +13,16 @@ import { addUploadFile, changeUploadFile, showUploader } from './upload';
 export const getFiles = (dirId, sort) => {
     return async (dispatch) => {
         try {
+            dispatch({ type: SET_LOADING });
             let url = 'http://localhost:5000/api/files';
-            if(dirId) {
-                url = `http://localhost:5000/api/files?parent=${dirId}`
+            if (dirId) {
+                url = `http://localhost:5000/api/files?parent=${dirId}`;
             }
-            if(sort) {
-                url = `http://localhost:5000/api/files?sort=${sort}`
+            if (sort) {
+                url = `http://localhost:5000/api/files?sort=${sort}`;
             }
-            if(dirId && sort) {
-                url = `http://localhost:5000/api/files?parent=${dirId}&sort=${sort}`
+            if (dirId && sort) {
+                url = `http://localhost:5000/api/files?parent=${dirId}&sort=${sort}`;
             }
             const response = await axios.get(url, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -154,6 +156,28 @@ export const deleteFile = (file) => {
             alert(response.data.message);
         } catch (e) {
             alert(e?.response?.data?.message);
+        }
+    };
+};
+
+export const searchFiles = (search) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: SET_LOADING
+            })
+            const response = await axios.get(
+                `http://localhost:5000/api/files/search?search=${search}`,
+                {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                },
+            );
+            dispatch({
+                type: SET_FILES,
+                payload: response.data
+            })
+        } catch (e) {
+            alert(e.response.data.message);
         }
     };
 };

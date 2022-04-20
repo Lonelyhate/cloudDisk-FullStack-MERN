@@ -5,20 +5,28 @@ export const SET_POPUP_DISPLAY = 'SET_POPUP_DISPLAY'
 export const PUSH_TO_STACK = 'PUSH_TO_STACK'
 export const POP_FROM_STACK = 'POP_FROM_STACK'
 export const DELETE_FILE = 'DELETE_FILE'
+export const SET_LOADING = 'SET_LOADING'
 
 const defaultState = {
     files: [],
     currentDir: null,
     popupDisplay: 'none',
-    dirStack: []
+    dirStack: [],
+    loading: false
 }
 
 export default function fileReducer(state = defaultState, action) {
     switch (action.type) {
+        case SET_LOADING:
+            return {
+                ...state,
+                loading: true
+            }
         case SET_FILES:
             return {
                 ...state,
-                files: action.payload
+                files: action.payload,
+                loading: false
             }
         case SET_CURRENT_DIR:
             return {

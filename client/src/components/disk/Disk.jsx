@@ -16,8 +16,9 @@ const Disk = () => {
     const dispatch = useDispatch();
     const currentDir = useSelector((state) => state.files.currentDir);
     const dirStack = useSelector((state) => state.files.dirStack);
+    const loading = useSelector((state) => state.files.loading);
     const [dragEnter, setDragEnter] = useState(false);
-    const [sort, setSort] = useState('type')
+    const [sort, setSort] = useState('type');
 
     useEffect(() => {
         dispatch(getFiles(currentDir, sort));
@@ -38,28 +39,41 @@ const Disk = () => {
     };
 
     const dragEnterHandler = (event) => {
-        event.preventDefault()
-        event.stopPropagation()
-        setDragEnter(true)
-    }
+        event.preventDefault();
+        event.stopPropagation();
+        setDragEnter(true);
+    };
 
     const dragLeaveHandler = (event) => {
-        event.preventDefault()
-        event.stopPropagation()
-        setDragEnter(false)
-    }
+        event.preventDefault();
+        event.stopPropagation();
+        setDragEnter(false);
+    };
 
     const dropHandler = (event) => {
-        event.preventDefault()
-        event.stopPropagation()
-        let files = [...event.dataTransfer.files]
+        event.preventDefault();
+        event.stopPropagation();
+        let files = [...event.dataTransfer.files];
         files.forEach((file) => dispatch(uploadFile(file, currentDir)));
 
-        setDragEnter(false)
+        setDragEnter(false);
+    };
+
+    if (loading === true) {
+        return (
+            <div>
+                <div className="lds-dual-ring"></div>
+            </div>
+        );
     }
 
     return !dragEnter ? (
-        <div className="disk" onDrop={dropHandler} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler}>
+        <div
+            className="disk"
+            onDrop={dropHandler}
+            onDragEnter={dragEnterHandler}
+            onDragLeave={dragLeaveHandler}
+            onDragOver={dragEnterHandler}>
             <div className="container">
                 <div className="disk__btns">
                     {currentDir && (
@@ -82,19 +96,27 @@ const Disk = () => {
                             className="disk__upload-input"
                         />
                     </div>
-                    <select value={sort} onChange={e => setSort(e.target.value)} className='disk__select'>
-                        <option value='name' >По имени</option>
-                        <option value='type' >По типу</option>
-                        <option value='date' >По дате</option>
+                    <select
+                        value={sort}
+                        onChange={(e) => setSort(e.target.value)}
+                        className="disk__select">
+                        <option value="name">По имени</option>
+                        <option value="type">По типу</option>
+                        <option value="date">По дате</option>
                     </select>
                 </div>
                 <FileList />
                 <Popup />
-                <Uploader/>
+                <Uploader />
             </div>
         </div>
     ) : (
-        <div className="drop-area" onDrop={dropHandler} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler}>
+        <div
+            className="drop-area"
+            onDrop={dropHandler}
+            onDragEnter={dragEnterHandler}
+            onDragLeave={dragLeaveHandler}
+            onDragOver={dragEnterHandler}>
             <h2>Перетащите файлы сюда</h2>
         </div>
     );
