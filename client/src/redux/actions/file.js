@@ -7,6 +7,7 @@ import {
     SET_FILES,
     SET_LOADING,
     SET_POPUP_DISPLAY,
+    SET_VIEW,
 } from '../reducers/fileReducer';
 import { addUploadFile, changeUploadFile, showUploader } from './upload';
 
@@ -181,3 +182,12 @@ export const searchFiles = (search) => {
         }
     };
 };
+
+export const setView = (payload) => {
+    return dispatch => {
+        dispatch({
+            type: SET_VIEW,
+            payload: payload
+        })
+    }
+}

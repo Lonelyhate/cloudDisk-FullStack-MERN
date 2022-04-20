@@ -6,13 +6,15 @@ export const PUSH_TO_STACK = 'PUSH_TO_STACK'
 export const POP_FROM_STACK = 'POP_FROM_STACK'
 export const DELETE_FILE = 'DELETE_FILE'
 export const SET_LOADING = 'SET_LOADING'
+export const SET_VIEW = 'SET_VIEW'
 
 const defaultState = {
     files: [],
     currentDir: null,
     popupDisplay: 'none',
     dirStack: [],
-    loading: false
+    loading: false,
+    view: 'list'
 }
 
 export default function fileReducer(state = defaultState, action) {
@@ -52,6 +54,11 @@ export default function fileReducer(state = defaultState, action) {
             return {
                 ...state,
                 files: [...state.files.filter(file => file._id != action.payload)]
+            }
+        case SET_VIEW:
+            return {
+                ...state,
+                view: action.payload
             }
         default: 
             return state

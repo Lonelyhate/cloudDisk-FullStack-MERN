@@ -5,12 +5,15 @@ import {
     getFiles,
     popupVisable,
     setCurrentDir,
+    setView,
     uploadFile,
 } from '../../redux/actions/file';
 import './Disk.scss';
 import FileList from './fileList/FileList';
 import Popup from './Popup/Popup';
 import Uploader from './uploader/Uploader';
+import plateImg from '../../assets/img/Union.svg'
+import listImg from '../../assets/img/Vector.svg'
 
 const Disk = () => {
     const dispatch = useDispatch();
@@ -104,6 +107,8 @@ const Disk = () => {
                         <option value="type">По типу</option>
                         <option value="date">По дате</option>
                     </select>
+                    <button onClick={() => dispatch(setView('plate'))} className="disk__plate"> <img src={plateImg} alt="" /> </button>
+                    <button onClick={() => dispatch(setView('list'))} className="disk__list"> <img src={listImg} alt="" /> </button>
                 </div>
                 <FileList />
                 <Popup />

@@ -25,6 +25,24 @@
     &__select{
         margin-left: auto;
     }
+    &__list{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+    &__plate{
+        margin-left: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
 }
 
 .drop-area{
