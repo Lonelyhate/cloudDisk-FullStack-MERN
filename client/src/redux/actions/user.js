@@ -16,7 +16,7 @@ export const registration = async (email, password) => {
 export const login = (email, password) => {
     return async (dispatch) => {
         try {
-            dispatch({type: USER_LOADING})
+            dispatch({ type: USER_LOADING });
             const response = await axios.post(`http://localhost:5000/api/login`, {
                 email,
                 password,
@@ -47,17 +47,54 @@ export const logout = () => {
 export const auth = () => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/auth`,
-                {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
-            )
+            const response = await axios.get(`http://localhost:5000/api/auth`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
             dispatch({
                 type: SET_USER,
                 payload: response.data,
             });
             localStorage.setItem('token', response.data.token);
         } catch (e) {
-            
             localStorage.removeItem('token');
+        }
+    };
+};
+
+export const uploadAvatar = (file) => {
+    return async (dispatch) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            console.log(formData);
+            const response = await axios.post('http://localhost:5000/api/files/avatar', formData, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
+            dispatch({
+                type: SET_USER,
+                payload: response.data,
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+};
+
+export const deleteAvatar = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete(
+                'http://localhost:5000/api/files/avatar',
+                {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                },
+            );
+            dispatch({
+                type: SET_USER,
+                payload: response.data
+            })
+        } catch (e) {
+            console.log(e);
         }
     };
 };

@@ -16,6 +16,7 @@ app.use(
         origin: 'http://localhost:3000'
     }),
 );
+app.use(express.static('static'))
 app.use('/api', authRouter)
 app.use('/api/files', fileRouter)
 

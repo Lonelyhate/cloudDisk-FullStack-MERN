@@ -2,5 +2,6 @@
     "serverPort": 5000,
     "dbUrl": "mongodb+srv://nikita:1234@cluster0.vg48o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     "secretKey": "mern-secret",
-    "filePath": "C:\\Users\\nikit\\Desktop\\FullStacks apps\\DropDisk\\server\\files"
+    "filePath": "C:\\Users\\nikit\\Desktop\\FullStacks apps\\DropDisk\\server\\files",
+    "staticPath": "C:\\Users\\nikit\\Desktop\\FullStacks apps\\DropDisk\\server\\static"
 }

@@ -5,27 +5,36 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions/user';
 import { getFiles, searchFiles } from '../../redux/actions/file';
+import avatarImg from '../../assets/img/avatar.svg';
 
 const Navbar = () => {
     const isAuth = useSelector((state) => state.user.isAuth);
-    const currentDir = useSelector((state) => state.files.currentDir)
+    const currentDir = useSelector((state) => state.files.currentDir);
+    const currentUser = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
     const [searchName, setSearchName] = useState('');
-    const [searchTimeout, setSearchTimeout] = useState(false)
+    const [searchTimeout, setSearchTimeout] = useState(false);
+    const avatar = currentUser.avatar ? `http://localhost:5000/${currentUser.avatar}` : avatarImg;
 
     const searchHandler = (e) => {
-        setSearchName(e.target.value)
-        if(searchTimeout != false) {
-            clearTimeout(searchTimeout)
+        setSearchName(e.target.value);
+        if (searchTimeout != false) {
+            clearTimeout(searchTimeout);
         }
-        if(e.target.value != '') {
-            setSearchTimeout(setTimeout((value) => {
-                dispatch(searchFiles(value))
-            }, 500, e.target.value))
+        if (e.target.value != '') {
+            setSearchTimeout(
+                setTimeout(
+                    (value) => {
+                        dispatch(searchFiles(value));
+                    },
+                    500,
+                    e.target.value,
+                ),
+            );
         } else {
-            dispatch(getFiles(currentDir))
+            dispatch(getFiles(currentDir));
         }
-    }
+    };
 
     return (
         <header className="navbar">
@@ -38,7 +47,7 @@ const Navbar = () => {
                     <>
                         <input
                             value={searchName}
-                            onChange={e => searchHandler(e)}
+                            onChange={(e) => searchHandler(e)}
                             className="navbar__search"
                             type="text"
                             placeholder="Поиск..."
@@ -46,6 +55,9 @@ const Navbar = () => {
                         <div onClick={() => dispatch(logout())} className="navbar__login">
                             Выйти
                         </div>
+                        <Link to='/profile'>
+                            <img className='avatar' src={avatar} alt="Автар.ком" />
+                        </Link>
                     </>
                 ) : (
                     <>
